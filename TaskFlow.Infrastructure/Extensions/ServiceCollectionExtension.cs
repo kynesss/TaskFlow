@@ -21,6 +21,8 @@ namespace TaskFlow.Infrastructure.Extensions
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders()
             .AddDefaultUI();
+
+            services.AddScoped<IdentitySeeder>();
         }
     }
 }
