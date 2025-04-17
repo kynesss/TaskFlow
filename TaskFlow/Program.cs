@@ -2,12 +2,14 @@ using Microsoft.AspNetCore.Identity;
 using TaskFlow.Domain.Identity;
 using TaskFlow.Infrastructure.Extensions;
 using TaskFlow.Infrastructure.Persistence;
+using TaskFlow.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
