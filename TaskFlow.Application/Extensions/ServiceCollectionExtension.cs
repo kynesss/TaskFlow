@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TaskFlow.Application.ApplicationUser;
 
 namespace TaskFlow.Application.Extensions
 {
@@ -8,6 +9,8 @@ namespace TaskFlow.Application.Extensions
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             services.AddAutoMapper(assemblies);
+
+            services.AddScoped<IUserContext, UserContext>();
         }
     }
 }
