@@ -26,7 +26,7 @@ namespace TaskFlow.Infrastructure.Persistence
 
             var admin = new IdentityUser()
             {
-                UserName = "Admin",
+                UserName = "admin@taskflow.com",
                 Email = "admin@taskflow.com"
             };
 
