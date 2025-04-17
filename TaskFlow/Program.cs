@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Identity;
+using TaskFlow.Domain.Identity;
 using TaskFlow.Infrastructure.Extensions;
 using TaskFlow.Infrastructure.Persistence;
 
@@ -6,6 +8,24 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Events.OnSignedIn = async context =>
+    {
+        var userManager = context.HttpContext.RequestServices.GetRequiredService<UserManager<IdentityUser>>();
+        var user = await userManager.GetUserAsync(context.Principal!);
+
+        if (user != null)
+        {
+            var roles = await userManager.GetRolesAsync(user);
+            if (!roles.Any())
+            {
+                await userManager.AddToRoleAsync(user, Roles.User);
+            }
+        }
+    };
+});
 
 var app = builder.Build();
 
