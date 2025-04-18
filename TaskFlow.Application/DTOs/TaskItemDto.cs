@@ -9,8 +9,8 @@ namespace TaskFlow.Application.DTOs
         public string? Description { get; set; }
         public TaskPriority Priority { get; set; }
         public Domain.Enums.TaskStatus Status { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public string CreatedBy { get; set; } = default!;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public string CreatedBy { get; set; } = string.Empty;
         public string? AssignedTo { get; set; }
     }
 }

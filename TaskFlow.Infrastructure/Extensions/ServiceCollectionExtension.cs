@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TaskFlow.Application.Interfaces;
 using TaskFlow.Infrastructure.Persistence;
+using TaskFlow.Infrastructure.Services;
 
 namespace TaskFlow.Infrastructure.Extensions
 {
@@ -23,6 +25,7 @@ namespace TaskFlow.Infrastructure.Extensions
             .AddDefaultUI();
 
             services.AddScoped<IdentitySeeder>();
+            services.AddScoped<ITaskItemService, TaskItemService>();
         }
     }
 }
