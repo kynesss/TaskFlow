@@ -11,6 +11,8 @@ namespace TaskFlow.Application.DTOs
         public Domain.Enums.TaskStatus Status { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public string CreatedBy { get; set; } = string.Empty;
+        public string? CreatedByEmail { get; set; }
         public string? AssignedTo { get; set; }
+        public string? AssignedToEmail { get; set; }
     }
 }

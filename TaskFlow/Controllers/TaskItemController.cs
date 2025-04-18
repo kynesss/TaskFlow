@@ -9,10 +9,12 @@ namespace TaskFlow.Web.Controllers
     public class TaskItemController : Controller
     {
         private readonly ITaskItemService _taskItemService;
+        private readonly IUserService _userService;
 
-        public TaskItemController(ITaskItemService taskItemService)
+        public TaskItemController(ITaskItemService taskItemService, IUserService userService)
         {
             _taskItemService = taskItemService;
+            _userService = userService;
         }
 
         public async Task<IActionResult> Index()
@@ -21,8 +23,11 @@ namespace TaskFlow.Web.Controllers
             return View(taskItems);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var users = await _userService.GetAll();
+
+            ViewBag.Users = new SelectList(users, "Id", "Email");
             ViewBag.Priorities = new SelectList(Enum.GetValues<TaskPriority>());
             ViewBag.Statuses = new SelectList(Enum.GetValues<Domain.Enums.TaskStatus>());
 
@@ -38,7 +43,7 @@ namespace TaskFlow.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return Create();
+            return await Create();
         }
     }
 }
