@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TaskFlow.Application.DTOs;
 using TaskFlow.Application.TaskItem.Commands.CreateTaskItem;
+using TaskFlow.Application.TaskItem.Commands.EditTaskItem;
 
 namespace TaskFlow.Application.Mappings
 {
@@ -12,6 +13,7 @@ namespace TaskFlow.Application.Mappings
                 .ReverseMap();
 
             CreateMap<CreateTaskItemCommand, Domain.Entities.TaskItem>();
+            CreateMap<TaskItemDto, UpdateTaskItemCommand>();
         }
     }
 }
