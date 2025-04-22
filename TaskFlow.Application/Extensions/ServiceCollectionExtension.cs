@@ -1,6 +1,9 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using TaskFlow.Application.ApplicationUser;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using TaskFlow.Application.TaskItem.Commands.CreateTaskItem;
 
 namespace TaskFlow.Application.Extensions
 {
@@ -13,6 +16,10 @@ namespace TaskFlow.Application.Extensions
             services.AddMediatR(assemblies);
 
             services.AddScoped<IUserContext, UserContext>();
+
+            services.AddValidatorsFromAssemblyContaining<CreateTaskItemCommand>()
+                .AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
         }
     }
 }
