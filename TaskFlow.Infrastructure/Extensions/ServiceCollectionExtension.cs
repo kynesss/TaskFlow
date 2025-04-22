@@ -2,10 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TaskFlow.Application.Interfaces;
+using TaskFlow.Domain.Interfaces;
 using TaskFlow.Infrastructure.Mappings;
 using TaskFlow.Infrastructure.Persistence;
-using TaskFlow.Infrastructure.Services;
+using TaskFlow.Infrastructure.Repositories;
 
 namespace TaskFlow.Infrastructure.Extensions
 {
@@ -26,8 +26,8 @@ namespace TaskFlow.Infrastructure.Extensions
             .AddDefaultUI();
 
             services.AddScoped<IdentitySeeder>();
-            services.AddScoped<ITaskItemService, TaskItemService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITaskItemRepository, TaskItemRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddAutoMapper(typeof(IdentityMappingProfile));
         }

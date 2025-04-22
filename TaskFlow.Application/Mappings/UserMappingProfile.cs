@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Identity;
 using TaskFlow.Application.User;
 
-namespace TaskFlow.Infrastructure.Mappings
+namespace TaskFlow.Application.Mappings
 {
-    public class IdentityMappingProfile : Profile
+    public class UserMappingProfile : Profile
     {
-        public IdentityMappingProfile()
+        public UserMappingProfile()
         {
             CreateMap<IdentityUser, UserDto>();
         }
