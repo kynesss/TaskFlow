@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TaskFlow.Application.TaskItem.Commands.CreateTaskItem;
+using TaskFlow.Application.TaskItem.Commands.DeleteTaskItem;
 using TaskFlow.Application.TaskItem.Queries.GetAllTaskItems;
 using TaskFlow.Application.User;
 using TaskFlow.Application.User.Queries.GetAllUsers;
@@ -50,6 +51,13 @@ namespace TaskFlow.Web.Controllers
             }
 
             return await Create();
+        }
+
+        [Route("TaskItem/Delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _mediator.Send(new DeleteTaskItemCommand(id));
+            return RedirectToAction(nameof(Index));
         }
     }
 }
