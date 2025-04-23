@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskFlow.Infrastructure", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskFlow.Domain", "TaskFlow.Domain\TaskFlow.Domain.csproj", "{CEF350D7-95D9-4FCB-9CC4-3B95B0F3FBFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskFlow.ApplicationTests", "TaskFlow.ApplicationTests\TaskFlow.ApplicationTests.csproj", "{D0C85896-869F-4ABA-BD60-320619254B9E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5498D5BC-69AB-4864-89B1-865CE76E7564}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,8 +37,15 @@ Global
 		{CEF350D7-95D9-4FCB-9CC4-3B95B0F3FBFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEF350D7-95D9-4FCB-9CC4-3B95B0F3FBFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEF350D7-95D9-4FCB-9CC4-3B95B0F3FBFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0C85896-869F-4ABA-BD60-320619254B9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0C85896-869F-4ABA-BD60-320619254B9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0C85896-869F-4ABA-BD60-320619254B9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0C85896-869F-4ABA-BD60-320619254B9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D0C85896-869F-4ABA-BD60-320619254B9E} = {5498D5BC-69AB-4864-89B1-865CE76E7564}
 	EndGlobalSection
 EndGlobal
