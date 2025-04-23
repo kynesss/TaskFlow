@@ -1,0 +1,16 @@
+﻿@using TaskFlow.Application.User
+@model IEnumerable<UserDto>
+
+<form method="get" asp-action="Index">
+	<div class="mb-2">
+		<label>Assigned to:</label>
+		<select name="Filter.AssignedTo" class="form-select">
+			<option value="">All</option>
+			@foreach(var user in Model)
+			{
+				<option value="@user.Id">@user.Email</option>
+			}
+		</select>
+	</div>
+	<button type="submit" class="btn btn-primary">Filter</button>
+</form>

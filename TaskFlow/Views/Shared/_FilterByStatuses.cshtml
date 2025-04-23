@@ -1,0 +1,15 @@
+﻿@model TaskFlow.Domain.Enums.TaskStatus[]
+
+<form method="get" asp-action="Index">
+	<div class="mb-2">
+		<label>Status:</label>
+		<select name="Filter.Status" class="form-select">
+			<option value="">All</option>
+			@foreach (var status in Model)
+			{
+				<option value="@status">@status</option>
+			}
+		</select>
+	</div>
+	<button type="submit" class="btn btn-primary">Filter</button>
+</form>

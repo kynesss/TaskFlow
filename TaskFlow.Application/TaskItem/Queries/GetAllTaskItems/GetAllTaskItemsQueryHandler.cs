@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
-using TaskFlow.Application.DTOs;
+using System.Runtime.CompilerServices;
+using TaskFlow.Application.Extensions;
 using TaskFlow.Domain.Interfaces;
 
 namespace TaskFlow.Application.TaskItem.Queries.GetAllTaskItems
@@ -22,6 +22,29 @@ namespace TaskFlow.Application.TaskItem.Queries.GetAllTaskItems
         public async Task<IEnumerable<TaskItemDto>> Handle(GetAllTaskItemsQuery request, CancellationToken cancellationToken)
         {
             var tasks = await _taskItemRepository.GetAllAsync();
+
+            var filter = request.Filter;
+
+            if (filter != null)
+            {
+                if (!filter.AssignedTo.IsNullOrEmpty())
+                {
+                    tasks = tasks.Where(x => x.AssignedTo == filter.AssignedTo);
+                }
+                else if (!filter.CreatedBy.IsNullOrEmpty())
+                {
+                    tasks = tasks.Where(x => x.CreatedBy == filter.CreatedBy);
+                }
+                else if (filter.Status.HasValue)
+                {
+                    tasks = tasks.Where(x => x.Status == filter.Status);
+                }
+                else if (filter.Priority.HasValue)
+                {
+                    tasks = tasks.Where(x => x.Priority == filter.Priority);
+                }
+            }
+
             var dtos = _mapper.Map<IEnumerable<TaskItemDto>>(tasks);
 
             foreach (var dto in dtos)

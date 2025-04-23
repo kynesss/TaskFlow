@@ -2,9 +2,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using TaskFlow.Application.TaskItem.Commands.CreateTaskItem;
 using TaskFlow.Application.TaskItem.Commands.DeleteTaskItem;
 using TaskFlow.Application.TaskItem.Commands.EditTaskItem;
+using TaskFlow.Application.TaskItem.Filters;
 using TaskFlow.Application.TaskItem.Queries.GetAllTaskItems;
 using TaskFlow.Application.TaskItem.Queries.GetTaskItemById;
 using TaskFlow.Application.User;
@@ -24,9 +26,13 @@ namespace TaskFlow.Web.Controllers
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] TaskItemFilterDto filter)
         {
-            var taskItems = await _mediator.Send(new GetAllTaskItemsQuery());
+            var query = new GetAllTaskItemsQuery(filter);
+            var taskItems = await _mediator.Send(query);
+
+            ViewBag.Users = await _mediator.Send(new GetAllUsersQuery());
+
             return View(taskItems);
         }
 
@@ -75,6 +81,29 @@ namespace TaskFlow.Web.Controllers
         {
             await _mediator.Send(new DeleteTaskItemCommand(id));
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> LoadFilterPartial([FromQuery] FilterType filter)
+        {
+            switch (filter)
+            {
+                case FilterType.AssignedTo:
+                    return PartialView("_FilterByAssignedTo", await _mediator.Send(new GetAllUsersQuery()));
+
+                case FilterType.CreatedBy:
+                    return PartialView("_FilterByCreatedBy", await _mediator.Send(new GetAllUsersQuery()));
+
+                case FilterType.Status:
+                    var statuses = Enum.GetValues<Domain.Enums.TaskStatus>();
+                    return PartialView("_FilterByStatuses", statuses);
+
+                case FilterType.Priority:
+                    var priorities = Enum.GetValues<TaskPriority>();
+                    return PartialView("_FilterByPriorities", priorities);
+
+                default:
+                    return Content("");
+            }
         }
 
         private async Task PrepareTaskFormData()

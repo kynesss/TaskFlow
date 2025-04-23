@@ -1,6 +1,6 @@
 ﻿using TaskFlow.Domain.Enums;
 
-namespace TaskFlow.Application.DTOs
+namespace TaskFlow.Application.TaskItem
 {
     public class TaskItemDto
     {

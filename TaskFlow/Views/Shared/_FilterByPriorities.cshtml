@@ -1,0 +1,15 @@
+﻿@model TaskFlow.Domain.Enums.TaskPriority[]
+
+<form method="get" asp-action="Index">
+	<div class="mb-2">
+		<label>Priority:</label>
+		<select name="Filter.Priority" class="form-select">
+			<option value="">All</option>
+			@foreach (var priority in Model)
+			{
+				<option value="@priority">@priority</option>
+			}
+		</select>
+	</div>
+	<button type="submit" class="btn btn-primary">Filter</button>
+</form>

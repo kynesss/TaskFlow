@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using TaskFlow.Application.DTOs;
 using TaskFlow.Domain.Interfaces;
 
 namespace TaskFlow.Application.TaskItem.Queries.GetTaskItemById

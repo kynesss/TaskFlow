@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using TaskFlow.Application.DTOs;
+using TaskFlow.Application.TaskItem;
 using TaskFlow.Application.TaskItem.Commands.CreateTaskItem;
 using TaskFlow.Application.TaskItem.Commands.EditTaskItem;
 
