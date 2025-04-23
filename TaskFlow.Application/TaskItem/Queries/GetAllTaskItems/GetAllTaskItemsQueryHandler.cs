@@ -25,24 +25,19 @@ namespace TaskFlow.Application.TaskItem.Queries.GetAllTaskItems
 
             var filter = request.Filter;
 
-            if (filter != null)
+            if (filter is not null)
             {
-                if (!filter.AssignedTo.IsNullOrEmpty())
-                {
+                if (!string.IsNullOrEmpty(filter.AssignedTo))
                     tasks = tasks.Where(x => x.AssignedTo == filter.AssignedTo);
-                }
-                else if (!filter.CreatedBy.IsNullOrEmpty())
-                {
+
+                if (!string.IsNullOrEmpty(filter.CreatedBy))
                     tasks = tasks.Where(x => x.CreatedBy == filter.CreatedBy);
-                }
-                else if (filter.Status.HasValue)
-                {
-                    tasks = tasks.Where(x => x.Status == filter.Status);
-                }
-                else if (filter.Priority.HasValue)
-                {
-                    tasks = tasks.Where(x => x.Priority == filter.Priority);
-                }
+
+                if (filter.Status.HasValue)
+                    tasks = tasks.Where(x => x.Status == filter.Status.Value);
+
+                if (filter.Priority.HasValue)
+                    tasks = tasks.Where(x => x.Priority == filter.Priority.Value);
             }
 
             var dtos = _mapper.Map<IEnumerable<TaskItemDto>>(tasks);

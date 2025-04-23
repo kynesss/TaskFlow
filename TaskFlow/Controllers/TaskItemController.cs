@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -12,6 +13,7 @@ using TaskFlow.Application.TaskItem.Queries.GetTaskItemById;
 using TaskFlow.Application.User;
 using TaskFlow.Application.User.Queries.GetAllUsers;
 using TaskFlow.Domain.Enums;
+using TaskFlow.Domain.Identity;
 
 namespace TaskFlow.Web.Controllers
 {
@@ -36,12 +38,14 @@ namespace TaskFlow.Web.Controllers
             return View(taskItems);
         }
 
+        [Authorize(Roles = Roles.Manager)]
         public async Task<IActionResult> Create()
         {
             await PrepareTaskFormData();
             return View();
         }
 
+        [Authorize(Roles = Roles.Manager)]
         [Route("TaskItem/Edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -53,6 +57,7 @@ namespace TaskFlow.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Roles.Manager)]
         public async Task<IActionResult> Create(CreateTaskItemCommand command)
         {
             if (ModelState.IsValid)
@@ -65,6 +70,7 @@ namespace TaskFlow.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Roles.Manager)]
         public async Task<IActionResult> Update(UpdateTaskItemCommand command)
         {
             if (ModelState.IsValid)
@@ -76,6 +82,7 @@ namespace TaskFlow.Web.Controllers
             return await Edit(command.Id);
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [Route("TaskItem/Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
